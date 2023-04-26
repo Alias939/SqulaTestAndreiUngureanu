@@ -25,10 +25,14 @@ public class GameController : MonoBehaviour
     public int score;
     public TMPro.TextMeshProUGUI scorePanelText;
 
+    public GameObject spawnPoint;
+
     // Start is called before the first frame update
     void Start()
     {
-       scorePanelText = scorePanel.GetComponent<TMPro.TextMeshProUGUI>();
+        Application.targetFrameRate = 60; //so framerate is consistent between editor and build versions
+
+        scorePanelText = scorePanel.GetComponent<TMPro.TextMeshProUGUI>();
 
         StartCoroutine(spawnQuestion(spawnTime));   //initiate spawning of the questions at the beginning of the game 
     }
@@ -104,7 +108,7 @@ public class GameController : MonoBehaviour
         {
             //after spawnTime instantiate a questionPrefab, add the refference to list to be able to manipulate later
 
-            GameObject instantiatedQuestion = Instantiate(questionPrefab, new Vector3(164, 640, 0), Quaternion.identity);
+            GameObject instantiatedQuestion = Instantiate(questionPrefab, spawnPoint.transform.position, Quaternion.identity);
 
             questionA = Random.Range(1, 10);
             questionB = Random.Range(1, 10);
